@@ -7,6 +7,7 @@ use App\Http\Requests\ExhibitionStoreRequest;
 use App\Http\Requests\ExhibitionUpdateRequest;
 use App\Models\Exhibition;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class ExhibitionController extends Controller
@@ -14,9 +15,11 @@ class ExhibitionController extends Controller
 
     public function index(Request $request)
     {
-        $exhibitions = Inertia::defer(
-            fn() => $request->user()->exhibitions()->orderBy("id", "DESC")->paginate(10)
-        );
+        $exhibitions =
+            Inertia::defer(
+                fn() =>
+                $request->user()->exhibitions()->orderBy("id", "DESC")->paginate(10)
+            );
 
         $statusList = Exhibition::getStatusList();
 
@@ -101,5 +104,19 @@ class ExhibitionController extends Controller
         $exhibition->images()->toggle($data["selectedImages"]);
 
         return redirect()->back()->with("success", __("successfully added"));
+    }
+
+    public function destroy($lang, Request $request, Exhibition $exhibition)
+    {
+        abort_if(boolean: $request->user()->id !== $exhibition->user_id, code: 403);
+
+        DB::transaction(function () use ($exhibition) {
+
+            $exhibition->images()->sync([]);
+
+            $exhibition->delete();
+        });
+
+        return redirect()->route("exhibitions", ["lang" => $lang])->with("success", __("successfully deleted"));
     }
 }
