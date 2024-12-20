@@ -22,12 +22,20 @@ class DatabaseSeeder extends Seeder
                 'email' => 'test@example.com',
             ]
         );
+        User::factory()->create(
+            [
+                'name'  => 'Test User',
+                'email' => 'second_test@example.com',
+                'email_verified_at' => null,
+            ]
+        );
 
         User::factory()->count(10)->create();
 
         $this->call(
             [
                 ImageSeeder::class,
+                ExhibitionSeeder::class
             ]
         );
     }

@@ -27,4 +27,9 @@ class Image extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function exhibition()
+    {
+        return $this->morphedByMany(Exhibition::class,'imageable');
+    }
 }

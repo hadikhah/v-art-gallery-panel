@@ -1,0 +1,8 @@
+{
+    "platform": "laravel",
+    "laravel": {
+        "phpVersion": "8.2",
+        "configCache": true,
+        "routeCache": true
+    }
+}
