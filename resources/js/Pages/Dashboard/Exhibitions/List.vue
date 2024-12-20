@@ -1,5 +1,6 @@
 <script setup>
 import NewtabIcon from "@/Components/Icons/NewtabIcon.vue";
+import PlusIcon from "@/Components/Icons/PlusIcon.vue";
 import Pagination from "@/Components/Pagination.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import Skeleton from "@/Components/Skeleton.vue";
@@ -29,10 +30,22 @@ const locale = page.props.locale;
             <h2 class="text-xl font-semibold leading-tight text-gray-800">
                 My Exhibitions
             </h2>
+
         </template>
         <div class="py-5">
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div class="bg-white shadow-sm sm:rounded-lg">
+
+                    <div class="self-end pt-5 px-5">
+                        <Link :href="route(`exhibition.create`, {
+                            lang: locale,
+                        })" prefetch>
+                        <PrimaryButton>
+                            New Exhibition
+                            <PlusIcon></PlusIcon>
+                        </PrimaryButton>
+                        </Link>
+                    </div>
                     <Deferred data="exhibitions">
                         <template #fallback>
                             <Skeleton :count="11"></Skeleton>
@@ -45,11 +58,11 @@ const locale = page.props.locale;
                                         {{ exhibition.title }}
                                     </div>
                                     <div :class="exhibition.status ===
-                                            statusList.filter(
-                                                (item) => item.key === `STATUS_PUBLIC`
-                                            )[0].value
-                                            ? `border-lime-600 text-lime-800`
-                                            : `border-red-600 text-red-600`
+                                        statusList.filter(
+                                            (item) => item.key === `STATUS_PUBLIC`
+                                        )[0].value
+                                        ? `border-lime-600 text-lime-800`
+                                        : `border-red-600 text-red-600`
                                         " class="mx-5 border border-lg rounded text-center p-1">
                                         <span>
                                             {{ exhibition.status }}

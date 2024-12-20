@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Exhibition;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
-class ExhibitionImageAttachRequest extends FormRequest
+class ExhibitionStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,14 @@ class ExhibitionImageAttachRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "selectedImages" => ["required", "array"],
-            "selectedImages.*" => ["required", 'integer', Rule::in(Auth::user()->images->pluck('id')->toArray())],
+            "title" => ["required", "string", "max:255"],
+            "slug" => [
+                "required",
+                "string",
+                Rule::unique("exhibitions")
+            ],
+            "description" => ["nullable", "string", "max:500"],
+            "status" => ["required", Rule::in(Exhibition::$statusList)],
         ];
     }
 }

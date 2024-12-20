@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ExhibitionImageAttachRequest;
+use App\Http\Requests\ExhibitionStoreRequest;
 use App\Http\Requests\ExhibitionUpdateRequest;
 use App\Models\Exhibition;
 use Illuminate\Http\Request;
@@ -20,6 +21,31 @@ class ExhibitionController extends Controller
         $statusList = Exhibition::getStatusList();
 
         return Inertia::render("Dashboard/Exhibitions/List", compact("exhibitions", "statusList"));
+    }
+
+    public function create($lang)
+    {
+
+        $statusList = Exhibition::getStatusList();
+
+        return Inertia::render("Dashboard/Exhibitions/Create", compact("statusList"));
+    }
+
+    public function store($lang, ExhibitionStoreRequest $request)
+    {
+
+        // abort if not allowed
+
+        $exhibition = $request->user()->exhibitions()->create($request->validated());
+
+        return redirect()->route(
+            "exhibition.edit",
+            parameters: [
+                "exhibition" => $exhibition->id,
+                "lang" => $lang
+            ]
+        )
+            ->with("message", __("successfully created"));
     }
 
     public function edit($lang, Request $request, Exhibition $exhibition)

@@ -10,9 +10,7 @@ import { useForm, usePage } from "@inertiajs/vue3";
 import { watch } from "vue";
 
 const props = defineProps({
-    exhibition: {
-        type: Object,
-    },
+
     statusList: {
         type: Array,
     },
@@ -20,16 +18,15 @@ const props = defineProps({
 
 const page = usePage();
 
-console.log(page.props.flash);
-
 const locale = page.props.locale;
 
 const form = useForm({
-    title: props.exhibition.title,
-    slug: props.exhibition.slug,
-    status: props.exhibition.status,
-    description: props.exhibition.description,
+    title: "",
+    slug: "",
+    status: "",
+    description: "",
 });
+
 
 watch(
     () => form.title,
@@ -43,16 +40,15 @@ watch(
 <template>
     <section>
         <header>
-            <h2 class="text-lg font-medium text-gray-900">Exhibition information</h2>
+            <h2 class="text-lg font-medium text-gray-900">New Exhibition</h2>
 
-            <p class="mt-1 text-sm text-gray-600">Update exhibition information .</p>
+            <p class="mt-1 text-sm text-gray-600"> Step 1 : Exhibition information .</p>
         </header>
 
         <form @submit.prevent="
-            form.patch(
-                route('exhibition.update', {
+            form.post(
+                route('exhibition.store', {
                     lang: locale,
-                    exhibition: exhibition.id,
                 })
             )
             " class="mt-6 space-y-4 md:space-y-0 md:flex-row md:items-stretch flex flex-col flex-wrap">
@@ -81,15 +77,14 @@ watch(
             <div class="w-full m-1" flex-auto>
                 <InputLabel for="status" value="status" />
 
-                <SelectInput :options="statusList" :default="exhibition.status" id="status" class="mt-1 w-full"
-                    v-model="form.status" required />
+                <SelectInput :options="statusList" id="status" class="mt-1 w-full" v-model="form.status" required />
                 <!-- required -->
 
                 <InputError class="mt-2" :message="form.errors.status" />
             </div>
 
             <div class="flex items-center row-gap-4">
-                <PrimaryButton class="mx-1 my-5" :disabled="form.processing">Save</PrimaryButton>
+                <PrimaryButton class="mx-1 my-5" :disabled="form.processing">Save and next step</PrimaryButton>
 
                 <Transition enter-active-class="transition ease-in-out" enter-from-class="opacity-0"
                     leave-active-class="transition ease-in-out" leave-to-class="opacity-0">

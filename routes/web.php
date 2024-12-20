@@ -28,6 +28,10 @@ Route::prefix('{lang?}')->group(function ($route) {
 
         Route::get('dashboard/exhibition/{exhibition}/edit', [ExhibitionController::class, "edit"])->name("exhibition.edit");
 
+        Route::get('dashboard/exhibition/create', [ExhibitionController::class, "create"])->name("exhibition.create");
+
+        Route::post('dashboard/exhibition/store', [ExhibitionController::class, "store"])->name("exhibition.store");
+
         Route::patch('dashboard/exhibition/{exhibition}/update', [ExhibitionController::class, 'update'])
             ->name("exhibition.update");
 
