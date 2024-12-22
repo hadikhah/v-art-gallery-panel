@@ -48,6 +48,7 @@ defineExpose({ focus: () => input.value.focus() });
       v-for="option in options"
       :key="option.value"
       :value="option[optionValueKeyName ?? `value`]"
+      :default="option.default"
     >
       {{ option[optionTextKeyName ?? `value`] }}
     </option>
