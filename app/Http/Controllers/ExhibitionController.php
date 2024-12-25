@@ -92,7 +92,7 @@ class ExhibitionController extends Controller
 
         $exhibition->update($data);
 
-        return redirect()->back()->with("success", __("successfully updated"));
+        return redirect()->to(route("exhibitions", ["lang" => $lang]))->with("success", __("successfully updated"));
     }
 
     public function toggleImages($lang, ExhibitionImageAttachRequest $request, Exhibition $exhibition)
