@@ -16,8 +16,9 @@ class Image extends Model
      * @var string[]
      */
     protected $fillable = [
-        'path',
         'title',
+        'path',
+        'url',
     ];
 
     /**
@@ -30,6 +31,6 @@ class Image extends Model
 
     public function exhibition()
     {
-        return $this->morphedByMany(Exhibition::class,'imageable');
+        return $this->morphedByMany(Exhibition::class, 'imageable');
     }
 }

@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('user_id');
             $table->string('title')->nullable();
             $table->string('path')->nullable();
+            $table->text('url')->nullable();
             $table->timestamps();
         });
     }
