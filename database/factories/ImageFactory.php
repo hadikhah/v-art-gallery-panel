@@ -19,11 +19,10 @@ class ImageFactory extends Factory
     {
 
         return [
-//            "user_id" => User::query()->inRandomOrder()->first()->id,
+            //            "user_id" => User::query()->inRandomOrder()->first()->id,
             "path"    => $this->faker->imageUrl(),
+            "url"    => $this->faker->imageUrl(),
             "title"   => $this->faker->word(),
         ];
     }
-
-
 }
