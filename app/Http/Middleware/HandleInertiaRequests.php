@@ -14,6 +14,7 @@ class HandleInertiaRequests extends Middleware
      */
     protected $rootView = 'app';
 
+    protected $proxies = '*';
     /**
      * Determine the current asset version.
      */
@@ -35,6 +36,11 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+            'message' => [
+                'error' => fn() => $request->session()->get('error'),
+                'success' => fn() => $request->session()->get('success'),
+            ],
+
         ];
     }
 }
