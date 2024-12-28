@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ExhibitionController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -14,16 +15,20 @@ Route::prefix('{lang?}')->group(function ($route) {
 
     Route::middleware(['auth', 'verified'])->group(function () {
 
+        // ------------------ profile ------------
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 
+        // ------------------ main dashboard page ------------
+
         Route::get('/dashboard', function () {
             return Inertia::render('Dashboard');
         })->name('dashboard');
 
+        // ------------------ profile ------------
         Route::get('/dashboard/exhibition/list', [ExhibitionController::class, "index"])->name("exhibitions");
 
         Route::get('dashboard/exhibition/{exhibition}/edit', [ExhibitionController::class, "edit"])->name("exhibition.edit");
@@ -38,9 +43,17 @@ Route::prefix('{lang?}')->group(function ($route) {
         Route::patch('dashboard/exhibition/{exhibition}/images/toggle', [ExhibitionController::class, 'toggleImages'])
             ->name("exhibition.images.toggle");
 
-        Route::get('/dashboard/images', function () {
-            return "images";
-        })->name("images");
+        Route::delete("dashboard/exhibition/{exhibition}", [ExhibitionController::class, "destroy"])->name("exhibition.destroy");
+
+
+        //-------------------- gallery
+
+        Route::get('/dashboard/images/list', [ImageController::class, "index"])->name("images");
+
+        Route::post("/dashboard/images/upload", [ImageController::class, "upload"])->name("images.upload");
+        Route::delete("/dashboard/image/{image}/delete", [ImageController::class, "destroy"])->name("images.destroy");
+
+        Route::get("/dashboard/image/{image}/download", [ImageController::class, "download"])->name("images.download");
     });
 
     $route->get('/', function () {
@@ -50,7 +63,7 @@ Route::prefix('{lang?}')->group(function ($route) {
             'laravelVersion' => Application::VERSION,
             'phpVersion'     => PHP_VERSION,
         ]);
-    });
+    })->name("home");
 })->middleware(\App\Http\Middleware\Locale::class)
     ->where(["lang" => "fa|en"]);;
 
@@ -69,6 +82,15 @@ Route::get("/exhibition/v100", function () {
     return view("exhibition3");
 });
 
-Route::get("/exhibition/test", function () {
-    return view("exhibition_test");
+Route::get("/exhibition/visit/{slug}", [ExhibitionController::class, "visit"])->name("exhibition.visit");
+
+Route::get("/exhibition/map", function () {
+    return response()->json([
+        "mapSize" => 1,
+        "cellSize" => 5,
+        "wallThickness" => 0.2
+    ]);
 });
+
+Route::get("/exhibition/{exhibition}/images", [ExhibitionController::class, "images"])
+    ->name("exhibition.images");
