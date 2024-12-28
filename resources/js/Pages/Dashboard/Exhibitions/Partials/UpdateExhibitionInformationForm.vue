@@ -19,9 +19,6 @@ const props = defineProps({
 });
 
 const page = usePage();
-
-console.log(page.props.flash);
-
 const locale = page.props.locale;
 
 const form = useForm({
@@ -37,63 +34,99 @@ watch(
         form.slug = slugify(newValue);
     }
 );
-
 </script>
 
 <template>
     <section>
         <header>
-            <h2 class="text-lg font-medium text-gray-900">Exhibition information</h2>
+            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                Exhibition information
+            </h2>
 
-            <p class="mt-1 text-sm text-gray-600">Update exhibition information .</p>
+            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                Update exhibition information.
+            </p>
         </header>
 
-        <form @submit.prevent="
-            form.patch(
-                route('exhibition.update', {
-                    lang: locale,
-                    exhibition: exhibition.id,
-                })
-            )
-            " class="mt-6 space-y-4 md:space-y-0 md:flex-row md:items-stretch flex flex-col flex-wrap">
+        <form
+            @submit.prevent="
+                form.patch(
+                    route('exhibition.update', {
+                        lang: locale,
+                        exhibition: exhibition.id,
+                    })
+                )
+            "
+            class="mt-6 space-y-4 md:space-y-0 md:flex-row md:items-stretch flex flex-col flex-wrap"
+        >
             <div class="flex-auto m-1">
                 <InputLabel for="title" value="Title" />
 
-                <TextInput id="title" type="text" class="mt-1 w-full" v-model="form.title" required autofocus
-                    autocomplete="title" />
+                <TextInput
+                    id="title"
+                    type="text"
+                    class="mt-1 w-full"
+                    v-model="form.title"
+                    required
+                    autofocus
+                    autocomplete="title"
+                />
 
                 <InputError class="mt-2" :message="form.errors.title" />
             </div>
             <div class="flex-auto m-1">
-                <InputLabel for="slug" value="slug" />
+                <InputLabel for="slug" value="Slug" />
 
-                <TextInput disabled id="slug" type="text" class="mt-1 w-full" v-model="form.slug" required />
+                <TextInput
+                    disabled
+                    id="slug"
+                    type="text"
+                    class="mt-1 w-full"
+                    v-model="form.slug"
+                    required
+                />
 
                 <InputError class="mt-2" :message="form.errors.slug" />
             </div>
             <div class="flex-none w-full m-1">
-                <InputLabel for="description" value="description" />
+                <InputLabel for="description" value="Description" />
 
-                <TextArea id="description" type="text" class="mt-1 w-full" v-model="form.description" rows="4" />
+                <TextArea
+                    id="description"
+                    class="mt-1 w-full"
+                    v-model="form.description"
+                    rows="4"
+                />
 
                 <InputError class="mt-2" :message="form.errors.description" />
             </div>
-            <div class="w-full m-1" flex-auto>
-                <InputLabel for="status" value="status" />
+            <div class="w-full m-1 flex-auto">
+                <InputLabel for="status" value="Status" />
 
-                <SelectInput :options="statusList" :default="exhibition.status" id="status" class="mt-1 w-full"
-                    v-model="form.status" required />
-                <!-- required -->
-
+                <SelectInput
+                    :options="statusList"
+                    id="status"
+                    class="mt-1 w-full"
+                    v-model="form.status"
+                    required
+                />
                 <InputError class="mt-2" :message="form.errors.status" />
             </div>
 
             <div class="flex items-center row-gap-4">
-                <PrimaryButton class="mx-1 my-5" :disabled="form.processing">Save</PrimaryButton>
+                <PrimaryButton class="mx-1 my-5" :disabled="form.processing">
+                    Save
+                </PrimaryButton>
 
-                <Transition enter-active-class="transition ease-in-out" enter-from-class="opacity-0"
-                    leave-active-class="transition ease-in-out" leave-to-class="opacity-0">
-                    <p v-if="form.wasSuccessful" class="text-green-600">Saved.</p>
+                <Transition
+                    enter-active-class="transition ease-in-out"
+                    enter-from-class="opacity-0"
+                    leave-active-class="transition ease-in-out"
+                    leave-to-class="opacity-0"
+                >
+                    <p v-if="form.wasSuccessful" class="text-green-600">
+                        Saved.
+                    </p>
                 </Transition>
             </div>
         </form>
