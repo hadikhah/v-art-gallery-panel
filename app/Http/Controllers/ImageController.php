@@ -71,7 +71,12 @@ class ImageController extends Controller
 
         if ($delete)
             // Delete the image record from the database
-            $image->delete();
+            DB::transaction(function () use ($image) {
+
+                $image->exhibition()->sync([]);
+
+                $image->delete();
+            });
 
 
         return redirect()->back()->with('success', 'Image deleted successfully.');
