@@ -16,7 +16,7 @@ class ExhibitionSeeder extends Seeder
     {
         User::query()->inRandomOrder()->chunk(50, function ($q) {
             $q->each(function ($user) {
-                $exhibitions = Exhibition::factory()->count(10)->create(['user_id' => $user->id]);
+                $exhibitions = Exhibition::factory()->count(2)->create(['user_id' => $user->id]);
 
                 // dd($exhibition);
                 $exhibitions->each(function ($exhibition) use ($user) {

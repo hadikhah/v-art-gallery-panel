@@ -22,13 +22,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'test@example.com',
             ]
         );
-        User::factory()->create(
-            [
-                'name'  => 'Test User',
-                'email' => 'second_test@example.com',
-                'email_verified_at' => null,
-            ]
-        );
+
 
         User::factory()->count(10)->create();
 
@@ -36,6 +30,13 @@ class DatabaseSeeder extends Seeder
             [
                 ImageSeeder::class,
                 ExhibitionSeeder::class
+            ]
+        );
+        User::factory()->create(
+            [
+                'name'  => 'Test User',
+                'email' => 'second_test@example.com',
+                'email_verified_at' => null,
             ]
         );
     }

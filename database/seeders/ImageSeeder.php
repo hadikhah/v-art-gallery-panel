@@ -16,7 +16,7 @@ class ImageSeeder extends Seeder
     {
         User::query()->inRandomOrder()->chunk(100, function ($q) {
             $q->each(function ($user) {
-                Image::factory()->count(20)->create(['user_id' => $user->id]);
+                Image::factory()->count(1)->create(['user_id' => $user->id]);
             });
         });
     }
