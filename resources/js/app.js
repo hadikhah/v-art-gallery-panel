@@ -26,6 +26,11 @@ createInertiaApp({
             .mount(el);
     },
     progress: {
-        color: '#4B5563',
-    },
+        delay: 250,
+
+        // The color of the progress bar...
+        color: 'lightgreen',
+
+        // Whether to include the default NProgress styles...
+        includeCSS: true,    },
 });
