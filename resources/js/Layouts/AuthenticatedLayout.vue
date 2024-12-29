@@ -25,7 +25,7 @@ toast.addToast(page.props.message.error, "error");
 <template>
     <div>
         <Snackbar />
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+        <div class="min-h-screen overflow-x-hidden bg-gray-100 dark:bg-gray-900">
             <nav
                 class="border-b border-gray-100 bg-white dark:bg-gray-800 dark:border-gray-700"
             >
