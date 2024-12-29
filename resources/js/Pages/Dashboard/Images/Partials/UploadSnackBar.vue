@@ -138,7 +138,13 @@ const getStatusText = (item) => {
                             <p
                                 class="font-medium text-sm text-gray-800 dark:text-gray-200"
                             >
-                                {{ item.name }}
+                                {{
+                                    item.name.length > 30
+                                        ? item.name.substring(0, 30) +
+                                          " ... ." +
+                                          item.name.split(".").pop()
+                                        : item.name
+                                }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-300">
                                 {{ getStatusText(item) }}
