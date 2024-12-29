@@ -123,7 +123,16 @@ const confirmDelete = () => {
                                                 <h3
                                                     class="font-medium text-gray-900 dark:text-gray-100"
                                                 >
-                                                    {{ exhibition.title }}
+                                                    {{
+                                                        exhibition.title
+                                                            .length > 50
+                                                            ? exhibition.title.substring(
+                                                                  0,
+                                                                  50
+                                                              ) + " ... "
+                                                            : exhibition.title
+                                                    }}
+                                                    <!-- {{ exhibition.title }} -->
                                                 </h3>
                                             </div>
                                             <!-- Status Badge -->
