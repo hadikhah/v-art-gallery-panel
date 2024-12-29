@@ -54,7 +54,7 @@ const form = useForm({
 
         <div
             :class="{
-                'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 min-h-20 mt-5':
+                'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-5 gap-4 min-h-20 mt-5':
                     exhibitionImages.total > 0,
                 'flex h-20': exhibitionImages.total === 0,
             }"
@@ -67,11 +67,11 @@ const form = useForm({
             </div>
 
             <div
-                class="group overflow-hidden border-2 dark:border-transparent rounded-lg shadow-md transition-transform transform hover:scale-105"
+                class="group overflow-hidden border-2 dark:border-transparent rounded-lg shadow-md transition-all transform hover:scale-105"
                 v-for="image in exhibitionImages.data"
                 :key="image.id"
                 :class="{
-                    'border-blue-500 dark:border-blue-400 shadow-lg scale-105':
+                    'border-green-500 dark:border-green-400 shadow-lg scale-105':
                         imageStore.selectedRemoveImageIds.includes(image.id),
                 }"
             >
@@ -98,20 +98,29 @@ const form = useForm({
                         <div
                             class="absolute bottom-2 left-2 text-white text-sm font-medium"
                         >
-                            {{ image.title }}
+                            {{
+                                image.title.length > 10
+                                    ? image.title.substring(0, 10) +
+                                      " ... ." +
+                                      image.title.split(".").pop()
+                                    : image.title
+                            }}
+                            <!-- {{ image.title }} -->
                         </div>
-                        <div class="absolute bottom-1 right-1 flex space-x-2">
+                        <div
+                            v-if="
+                                imageStore.selectedRemoveImageIds.includes(
+                                    image.id
+                                )
+                            "
+                            class="absolute bottom-1 right-1 flex space-x-2"
+                        >
                             <div
-                                class="p-0.5 rounded-full bg-white/10 hover:bg-white/40 transition-colors"
+                                class="p-0.5 rounded-full bg-green-400 hover:bg-green-600 transition-colors"
                             >
                                 <svg
-                                    v-if="
-                                        imageStore.selectedRemoveImageIds.includes(
-                                            image.id
-                                        )
-                                    "
                                     xmlns="http://www.w3.org/2000/svg"
-                                    class="w-5 h-5 text-white"
+                                    class="w-5 h-5 text-gray-900"
                                     fill="none"
                                     viewBox="0 0 24 24"
                                     stroke="currentColor"
@@ -151,6 +160,8 @@ const form = useForm({
                         }),
                         {
                             onSuccess: () => clearImages(),
+                            only: ['exhibitionImages', 'allUserImages'],
+                            'preserve-scroll': true,
                         }
                     );
                 "

@@ -125,11 +125,11 @@ const form = useForm({
                     No available image
                 </div>
                 <div
-                    class="group overflow-hidden border dark:border-transparent rounded-lg shadow-md transition-transform transform hover:scale-105"
+                    class="group overflow-hidden border-2 dark:border-transparent rounded-lg shadow-md transition-all transform hover:scale-105"
                     v-for="image in allUserImages.data"
                     :key="image.id"
                     :class="{
-                        'border-blue-500 dark:border-blue-400 shadow-lg scale-105':
+                        'border-green-500 dark:border-green-400 shadow-lg scale-105':
                             imageStore.selectedImageIds.includes(image.id),
                     }"
                 >
@@ -156,22 +156,29 @@ const form = useForm({
                             <div
                                 class="absolute bottom-2 left-2 text-white text-sm font-medium"
                             >
-                                {{ image.title }}
+                                {{
+                                    image.title.length > 10
+                                        ? image.title.substring(0, 10) +
+                                          " ... ." +
+                                          image.title.split(".").pop()
+                                        : image.title
+                                }}
+                                <!-- {{ image.title }} -->
                             </div>
                             <div
+                                v-if="
+                                    imageStore.selectedImageIds.includes(
+                                        image.id
+                                    )
+                                "
                                 class="absolute bottom-1 right-1 flex space-x-2"
                             >
                                 <div
-                                    class="p-0.5 rounded-full bg-white/10 hover:bg-white/40 transition-colors"
+                                    class="p-0.5 rounded-full bg-green-400 hover:bg-green-600 transition-colors"
                                 >
                                     <svg
-                                        v-if="
-                                            imageStore.selectedImageIds.includes(
-                                                image.id
-                                            )
-                                        "
                                         xmlns="http://www.w3.org/2000/svg"
-                                        class="w-5 h-5 text-white"
+                                        class="w-5 h-5 text-gray-900"
                                         fill="none"
                                         viewBox="0 0 24 24"
                                         stroke="currentColor"
