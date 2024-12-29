@@ -79,7 +79,13 @@ onUnmounted(() => {
                     <div
                         class="absolute bottom-2 left-2 text-white text-sm font-medium"
                     >
-                        {{ image.title }}
+                        {{
+                            image.title.length > 10
+                                ? image.title.substring(0, 10) +
+                                  " ... ." +
+                                  image.title.split(".").pop()
+                                : image.title
+                        }}
                     </div>
                     <div class="absolute bottom-2 right-2 flex space-x-2">
                         <button

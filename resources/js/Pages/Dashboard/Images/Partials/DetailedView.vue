@@ -66,7 +66,9 @@ onUnmounted(() => {
                 </p>
             </div>
             <div class="ml-4 flex-1 text-wrap">
-                <p class="font-semibold text-gray-800 dark:text-gray-100">
+                <p
+                    class="hidden sm:block font-semibold text-gray-800 dark:text-gray-100"
+                >
                     Modified
                 </p>
             </div>
@@ -79,11 +81,11 @@ onUnmounted(() => {
         <div
             v-for="image in images.data"
             :key="image.id"
-            class="flex rounded-lg items-center border-b dark:border-transparent dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-950 transition-colors group"
+            class="flex rounded-lg align-middle items-center border-b dark:border-transparent dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-950 transition-colors group"
             @mouseenter="handleMouseEnter(image.id)"
             @mouseleave="handleMouseLeave"
         >
-            <div class="min-w-20 max-w-32 min-h-20 flex-1 shadow-md rounded-lg">
+            <div class="min-w-24 max-w-32 min-h-20 flex-1 shadow-md rounded-lg">
                 <div class="relative w-full" style="padding-top: 75%">
                     <img
                         :src="image.url"
@@ -93,17 +95,36 @@ onUnmounted(() => {
                 </div>
             </div>
             <div class="ml-4 flex-1 text-wrap">
-                <p class="font-sm text-gray-900 dark:text-gray-300">
-                    {{ image.title }}
+                <p
+                    class="block sm:hidden font-sm text-gray-900 dark:text-gray-300 truncate text-ellipsis"
+                >
+                    {{
+                        image.title.length > 15
+                            ? image.title.substring(0, 15) + " ... "
+                            : image.title
+                    }}
+                    <!-- {{ image.title }} -->
+                </p>
+                <p
+                    class="hidden sm:block font-sm text-gray-900 dark:text-gray-300 truncate text-ellipsis"
+                >
+                    {{
+                        image.title.length > 20
+                            ? image.title.substring(0, 20) + " ... "
+                            : image.title
+                    }}
+                    <!-- {{ image.title }} -->
                 </p>
             </div>
             <div class="ml-4 flex-1 text-wrap">
-                <p class="font-sm text-gray-900 dark:text-gray-300">
+                <p
+                    class="hidden sm:block font-sm text-gray-900 dark:text-gray-300"
+                >
                     {{ new Date(image.updated_at).toLocaleString() }}
                 </p>
             </div>
             <div
-                class="w-24 opacity-0 group-hover:opacity-100 transition-opacity flex space-x-2 justify-end pr-4"
+                class="relative w-24 opacity-0 group-hover:opacity-100 transition-opacity flex space-x-2 justify-end pr-4"
             >
                 <button
                     @pointerup="(e) => handleDelete(e, image.id)"
