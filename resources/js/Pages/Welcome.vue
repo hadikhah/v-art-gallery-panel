@@ -12,6 +12,8 @@ import { Link, usePage } from "@inertiajs/vue3";
 const page = usePage();
 const locale = page.props.locale;
 
+const user = page.props.auth.user;
+
 const features = [
     {
         name: "Virtual Exhibition Space",
@@ -80,14 +82,14 @@ toast.addToast(page.props.message.error, "error");
                                 <ThemeToggleButton />
 
                                 <Link
-                                    v-if="!$page.props.auth.user"
+                                    v-if="!user"
                                     :href="route('login', { lang: locale })"
                                     class="font-medium text-gray-200 hover:text-white"
                                 >
                                     Login
                                 </Link>
                                 <Link
-                                    v-if="$page.props.auth.user"
+                                    v-if="user"
                                     :href="route('dashboard', { lang: locale })"
                                     class="font-medium text-gray-200 hover:text-white"
                                 >
@@ -122,11 +124,19 @@ toast.addToast(page.props.message.error, "error");
                                 <div class="rounded-md shadow">
                                     <Link
                                         :href="
-                                            route('register', { lang: locale })
+                                            route(
+                                                !user
+                                                    ? 'register'
+                                                    : 'dashboard',
+                                                { lang: locale }
+                                            )
                                         "
-                                        class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
                                     >
-                                        Get Started
+                                        <button
+                                            class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
+                                        >
+                                            Get Started
+                                        </button>
                                     </Link>
                                 </div>
                                 <div class="mt-3 sm:mt-0 sm:ml-3">
