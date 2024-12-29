@@ -86,7 +86,7 @@ class ExhibitionController extends Controller
         $exhibitionImages = Inertia::defer(
             fn() =>
             $exhibition->images()->orderBy("id", "desc")
-                ->paginate(12, "userImagePage")
+                ->paginate(12, pageName: "userImagePage")
                 ->withQueryString()
         );
 
@@ -96,7 +96,7 @@ class ExhibitionController extends Controller
                 $query->where("imageables.imageable_id", $exhibition->id);
             })
                 ->orderBy("id", "desc")
-                ->paginate(12, "exhibitionImagePage")
+                ->paginate(12, pageName: "exhibitionImagePage")
                 ->withQueryString()
         );
 
