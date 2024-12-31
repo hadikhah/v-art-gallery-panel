@@ -124,7 +124,10 @@ const startUpload = (route) => {
             imageUploadStore.changeFileStatus(fileIndex, "uploading");
         },
         onProgress: (data) => {
-            imageUploadStore.changeFileProgress(fileIndex, data.percentage);
+            imageUploadStore.changeFileProgress(
+                fileIndex,
+                Math.floor(data.percentage * 0.9)
+            );
             childeRerender();
         },
         onFinish: () => {
