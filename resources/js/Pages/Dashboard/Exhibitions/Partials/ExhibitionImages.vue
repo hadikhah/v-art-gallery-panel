@@ -67,7 +67,7 @@ const form = useForm({
             </div>
 
             <div
-                class="group overflow-hidden border-2 dark:border-transparent rounded-lg shadow-md transition-all transform hover:scale-105"
+                class="group overflow-hidden border-2 dark:border-gray-800 rounded-lg shadow-md transition-all transform hover:scale-105"
                 v-for="image in exhibitionImages.data"
                 :key="image.id"
                 :class="{

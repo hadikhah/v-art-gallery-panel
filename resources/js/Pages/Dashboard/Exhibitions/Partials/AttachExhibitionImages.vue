@@ -125,13 +125,14 @@ const form = useForm({
                     No available image
                 </div>
                 <div
-                    class="group overflow-hidden border-2 dark:border-transparent rounded-lg shadow-md transition-all transform hover:scale-105"
+                    class="group overflow-hidden border-2 rounded-lg shadow-md transition-all transform hover:scale-105"
                     v-for="image in allUserImages.data"
                     :key="image.id"
-                    :class="{
-                        'border-green-500 dark:border-green-400 shadow-lg scale-105':
-                            imageStore.selectedImageIds.includes(image.id),
-                    }"
+                    :class="[
+                        imageStore.selectedImageIds.includes(image.id)
+                            ? 'border-green-500  shadow-lg scale-105'
+                            : 'border-gray-50 dark:border-gray-800',
+                    ]"
                 >
                     <div class="relative w-full" style="padding-top: 75%">
                         <img
