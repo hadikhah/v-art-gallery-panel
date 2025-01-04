@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\ExhibitionDefaultSettings;
 use App\Http\Requests\ExhibitionImageAttachRequest;
 use App\Http\Requests\ExhibitionStoreRequest;
 use App\Http\Requests\ExhibitionUpdateRequest;
 use App\Models\Exhibition;
+use App\Models\Texture;
+use App\TextureDefaultType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -163,6 +166,7 @@ class ExhibitionController extends Controller
         return redirect()->back()->with("success", __("successfully deleted"));
     }
 
+
     /**
      * Visit a specific exhibition by slug.
      *
@@ -172,12 +176,27 @@ class ExhibitionController extends Controller
      */
     public function visit(Request $request, $slug)
     {
-        $exhibition = Exhibition::where("slug", $slug)->first();
+        $exhibition = Exhibition::where("slug", $slug)
+            ->with(["songs", "ceilingTexture", "wallTexture", "floorTexture"])
+            ->first();
 
         abort_if(empty($exhibition), 404);
         abort_if($exhibition->status == Exhibition::STATUS_PRIVATE && Auth::id() !== $exhibition->user_id, 403);
 
-        return view("exhibition_test", compact("exhibition"));
+        $defaultTextures = Texture::query()->where("is_default", 1)->pluck("url", "default_type");
+
+        // dd($defaultTextures);
+
+        $mapSize = $exhibition->map_size ?? ExhibitionDefaultSettings::DEFAULT_MAP_SIZE();
+
+        $wallThickness = $exhibition->wall_thickness ??
+            ExhibitionDefaultSettings::DEFAULT_WALL_THICKNESS();
+
+        $cellSize = $exhibition->cell_size ?? ExhibitionDefaultSettings::DEFAULT_CELL_SIZE();
+
+        // $exhibition->increment("view_count");
+
+        return view("exhibition_visit", compact("exhibition", "mapSize", "wallThickness", "cellSize","defaultTextures"));
     }
 
     /**
