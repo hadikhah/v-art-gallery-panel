@@ -1,5 +1,6 @@
 <script setup>
 import ConfirmationModal from "@/Components/ConfirmationModal.vue";
+import GearIcon from "@/Components/Icons/GearIcon.vue";
 import PlusIcon from "@/Components/Icons/PlusIcon.vue";
 import Pagination from "@/Components/Pagination.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
@@ -163,6 +164,23 @@ const confirmDelete = () => {
 
                                         <!-- Action Buttons -->
                                         <div class="flex items-center gap-2">
+                                            <Link
+                                                :href="
+                                                    route(
+                                                        `exhibition.settings`,
+                                                        {
+                                                            lang: locale,
+                                                            exhibition:
+                                                                exhibition.id,
+                                                        }
+                                                    )
+                                                "
+                                                class="p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full"
+                                            >
+                                                <GearIcon
+                                                    class="w-6 h-6 text-orange-400"
+                                                />
+                                            </Link>
                                             <Link
                                                 :href="
                                                     route(`exhibition.edit`, {
