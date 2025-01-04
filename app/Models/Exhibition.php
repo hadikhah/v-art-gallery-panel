@@ -15,12 +15,30 @@ class Exhibition extends Model
 
     public static $statusList = [self::STATUS_PRIVATE, self::STATUS_PUBLIC];
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'has_background_song' => 'boolean',
+    ];
 
     protected $fillable = [
         "title",
         "slug",
         "description",
-        "status"
+        "status",
+
+        "ceiling_texture_id",
+        "wall_texture_id",
+        "floor_texture_id",
+
+        "has_background_song",
+
+        "wall_thickness",
+        "cell_size",
+        "map_size",
     ];
 
     public function user()
@@ -31,6 +49,25 @@ class Exhibition extends Model
     public function images()
     {
         return $this->morphToMany(Image::class, "imageable");
+    }
+    public function ceilingTexture()
+    {
+        return $this->belongsTo(Texture::class, 'ceiling_texture_id');
+    }
+
+    public function floorTexture()
+    {
+        return $this->belongsTo(Texture::class, 'floor_texture_id');
+    }
+
+    public function wallTexture()
+    {
+        return $this->belongsTo(Texture::class, 'wall_texture_id');
+    }
+
+    public function songs()
+    {
+        return $this->morphToMany(Song::class, 'songable');
     }
 
     public static function getStatusList()
