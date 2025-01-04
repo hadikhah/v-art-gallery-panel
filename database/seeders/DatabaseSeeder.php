@@ -29,7 +29,9 @@ class DatabaseSeeder extends Seeder
         $this->call(
             [
                 ImageSeeder::class,
-                ExhibitionSeeder::class
+                ExhibitionSeeder::class,
+                TextureSeeder::class,
+                SongSeeder::class,
             ]
         );
         User::factory()->create(
