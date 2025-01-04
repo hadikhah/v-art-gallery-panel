@@ -2,7 +2,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import PreviewRoom from "./Partials/Settings/PreviewRoom.vue";
 import { Head, usePage } from "@inertiajs/vue3";
-import { reactive, ref } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import { useForm } from "@inertiajs/vue3";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import TextureManagement from "./Partials/Settings/TextureManagement.vue";
@@ -34,7 +34,10 @@ const locale = usePage().props.locale;
 
 const showTextureModal = ref(false);
 const showAudioModal = ref(false);
-const selectedTextureType = ref("wall");
+const selectedTextureType = ref(null);
+
+onMounted(()=>(selectedTextureType.value = "wall"));
+
 const selectedSongs = ref(props.exhibition?.songs || []);
 
 const textureUrls = reactive({

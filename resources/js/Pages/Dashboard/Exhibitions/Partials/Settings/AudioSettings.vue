@@ -31,8 +31,6 @@ const musicEnabled = defineModel({
     type: Boolean,
 });
 
-console.log(props.selectedSongs);
-
 const emit = defineEmits([
     "showModal",
     "closeModal",

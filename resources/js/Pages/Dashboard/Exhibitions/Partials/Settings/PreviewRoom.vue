@@ -105,7 +105,6 @@ watch(props, async (newValue) => {
                 </div>
                 <div class="w-full h-auto">
                     <div
-                        ref="container"
                         id="canvas-container"
                         class="h-[30rem] sm:h-[35rem]"
                     ></div>
