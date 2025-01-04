@@ -19,6 +19,8 @@
         "vue": "^3.4.0"
     },
     "dependencies": {
-        "pinia": "^2.3.0"
+        "gl-matrix": "^3.4.3",
+        "pinia": "^2.3.0",
+        "regl": "^2.1.1"
     }
 }
