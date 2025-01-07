@@ -90,7 +90,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         return $this->hasMany(Exhibition::class);
     }
 
-    public function exhibitionViewCount()
+    public function exhibitionViewRate()
     {
         return $this->hasMany(ExhibitionView::class);
     }

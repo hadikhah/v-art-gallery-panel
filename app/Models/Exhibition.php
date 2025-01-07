@@ -70,7 +70,7 @@ class Exhibition extends Model
         return $this->morphToMany(Song::class, 'songable');
     }
 
-    public function viewCount()
+    public function viewRate()
     {
         return $this->hasMany(ExhibitionView::class);
     }
