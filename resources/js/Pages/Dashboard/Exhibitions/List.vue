@@ -111,6 +111,7 @@ const confirmDelete = () => {
                         <div class="p-4 text-gray-900 dark:text-gray-300">
                             <div class="space-y-3">
                                 <div
+                                    v-if="exhibitions.total > 0"
                                     class="hidden sm:flex p-4 border dark:border-transparent dark:bg-gray-900 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-950 transition-colors flex-col sm:flex-row items-center justify-between gap-4"
                                 >
                                     <div class="flex-none w-full sm:w-2/5">
