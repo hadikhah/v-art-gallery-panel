@@ -117,7 +117,11 @@ const handlePeriodChange = (period) => {
                             </div>
                         </div>
                         <ViewsChart
-                            :labels="Object.keys(exhibitionViewsChart)"
+                            :labels="
+                                Object.keys(exhibitionViewsChart).map((item) =>
+                                    period === 'day' ? item.split(' ')[1] : item
+                                )
+                            "
                             :data="Object.values(exhibitionViewsChart)"
                         />
                     </div>
