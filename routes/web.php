@@ -38,7 +38,7 @@ Route::prefix('{lang?}')->group(function ($route) {
 
         Route::patch('dashboard/exhibition/{exhibition}/settings', [ExhibitionSettingsController::class, "updateSettings"])->name("exhibition.settings.update");
 
-        Route::post('dashboard/exhibition/{exhibition}/store', [ExhibitionController::class, "store"])->name("exhibition.store");
+        Route::post('dashboard/exhibition/store', [ExhibitionController::class, "store"])->name("exhibition.store");
 
         Route::patch('dashboard/exhibition/{exhibition}/update', [ExhibitionController::class, 'update'])
             ->name("exhibition.update");
