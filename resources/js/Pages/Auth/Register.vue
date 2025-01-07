@@ -5,6 +5,9 @@ import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
 import { Head, Link, useForm, usePage } from "@inertiajs/vue3";
+import SecondaryButton from "@/Components/SecondaryButton.vue";
+import GithubIcon from "@/Components/Icons/GithubIcon.vue";
+import GoogleIcon from "@/Components/Icons/GoogleIcon.vue";
 
 const page = usePage();
 const locale = page.props.locale;
@@ -110,6 +113,32 @@ const submit = () => {
                 >
                     Register
                 </PrimaryButton>
+            </div>
+            <!-- GitHub Login Button -->
+            <div class="my-5">
+                <div class="mt-10">
+                    <a :href="route('login.github')" class="flex items-center">
+                        <PrimaryButton
+                            type="button"
+                            class="w-full justify-center tracking-widest"
+                        >
+                            <GithubIcon />
+                            Log in with GitHub
+                        </PrimaryButton>
+                    </a>
+                </div>
+
+                <!-- Google Login Button -->
+                <div class="mt-4">
+                    <a :href="route('login.google')" class="flex items-center">
+                        <SecondaryButton
+                            class="w-full justify-center tracking-widest"
+                        >
+                            <GoogleIcon />
+                            Log in with Google
+                        </SecondaryButton>
+                    </a>
+                </div>
             </div>
         </form>
     </GuestLayout>

@@ -7,6 +7,9 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
 import { Head, Link, useForm, usePage } from "@inertiajs/vue3";
 import { computed } from "vue";
+import GithubIcon from "@/Components/Icons/GithubIcon.vue";
+import GoogleIcon from "@/Components/Icons/GoogleIcon.vue";
+import SecondaryButton from "@/Components/SecondaryButton.vue";
 
 defineProps({
     canResetPassword: {
@@ -84,6 +87,7 @@ const submit = () => {
                     >
                 </label>
             </div>
+
             <div class="mt-4 block">
                 <Link
                     v-if="canResetPassword"
@@ -93,7 +97,6 @@ const submit = () => {
                     Forgot your password?
                 </Link>
             </div>
-
             <div class="mt-4 flex items-center justify-end">
                 <Link
                     v-if="canResetPassword"
@@ -103,12 +106,40 @@ const submit = () => {
                     Don't have an account yet? (create one)
                 </Link>
                 <PrimaryButton
+                    type="submit"
                     class="ms-4"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
                     Log in
                 </PrimaryButton>
+            </div>
+
+            <!-- GitHub Login Button -->
+            <div class="my-5">
+                <div class="mt-10">
+                    <a :href="route('login.github')" class="flex items-center">
+                        <PrimaryButton
+                            type="button"
+                            class="w-full justify-center tracking-widest"
+                        >
+                            <GithubIcon />
+                            Log in with GitHub
+                        </PrimaryButton>
+                    </a>
+                </div>
+
+                <!-- Google Login Button -->
+                <div class="mt-4">
+                    <a :href="route('login.google')" class="flex items-center">
+                        <SecondaryButton
+                            class="w-full justify-center tracking-widest"
+                        >
+                            <GoogleIcon />
+                            Log in with Google
+                        </SecondaryButton>
+                    </a>
+                </div>
             </div>
         </form>
     </GuestLayout>
