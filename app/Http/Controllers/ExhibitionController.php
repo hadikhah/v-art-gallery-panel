@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\ExhibitionViewAction;
 use App\ExhibitionDefaultSettings;
 use App\Http\Requests\ExhibitionImageAttachRequest;
 use App\Http\Requests\ExhibitionStoreRequest;
@@ -174,7 +175,7 @@ class ExhibitionController extends Controller
      * @param string $slug The exhibition slug.
      * @return \Illuminate\View\View
      */
-    public function visit(Request $request, $slug)
+    public function visit(Request $request, $slug, ExhibitionViewAction $action)
     {
         $exhibition = Exhibition::where("slug", $slug)
             ->with(["songs", "ceilingTexture", "wallTexture", "floorTexture"])
@@ -185,7 +186,7 @@ class ExhibitionController extends Controller
 
         $defaultTextures = Texture::query()->where("is_default", 1)->pluck("url", "default_type");
 
-        // dd($defaultTextures);
+        $action->handle($exhibition);
 
         $mapSize = $exhibition->map_size ?? ExhibitionDefaultSettings::DEFAULT_MAP_SIZE();
 
@@ -196,7 +197,7 @@ class ExhibitionController extends Controller
 
         // $exhibition->increment("view_count");
 
-        return view("exhibition_visit", compact("exhibition", "mapSize", "wallThickness", "cellSize","defaultTextures"));
+        return view("exhibition_visit", compact("exhibition", "mapSize", "wallThickness", "cellSize", "defaultTextures"));
     }
 
     /**
