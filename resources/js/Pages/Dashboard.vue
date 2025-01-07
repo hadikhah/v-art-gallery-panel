@@ -57,17 +57,17 @@ const handlePeriodChange = (period) => {
                 >
                     <StatsCard
                         title="Total Images"
-                        :value="userDetails.images_count"
+                        :value="userDetails.images_count ?? 0"
                         icon="image"
                     />
                     <StatsCard
                         title="Total Exhibitions"
-                        :value="userDetails.exhibitions_count"
+                        :value="userDetails.exhibitions_count ?? 0"
                         icon="gallery"
                     />
                     <StatsCard
                         title="Total Exhibitions Views"
-                        :value="userDetails.exhibition_view_rate_sum_views"
+                        :value="userDetails.exhibition_view_rate_sum_views ?? 0"
                         icon="gallery"
                     />
                 </div>
