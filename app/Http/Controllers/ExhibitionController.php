@@ -32,7 +32,7 @@ class ExhibitionController extends Controller
     {
         $exhibitions = Inertia::defer(
             fn() =>
-            $request->user()->exhibitions()->orderBy("id", "DESC")->paginate(10)
+            $request->user()->exhibitions()->withSum("viewRate", "views")->orderBy("id", "DESC")->paginate(10)
         );
 
         $statusList = Inertia::defer(fn() => Exhibition::getStatusList());
