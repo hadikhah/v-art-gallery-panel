@@ -4,6 +4,8 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
+use App\Http\Controllers\Auth\GithubLoginController;
+use App\Http\Controllers\Auth\GoogleLoginController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
@@ -33,6 +35,16 @@ Route::middleware('guest')->prefix('{lang?}')->group(function () {
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
         ->name('password.store');
+});
+
+Route::middleware('guest')->group(function () {
+    // Google login routes
+    Route::get('/login/google', [GoogleLoginController::class, 'redirectToGoogle'])->name('login.google');
+    Route::get('/login/google/callback', [GoogleLoginController::class, 'handleGoogleCallback']);
+
+    // GitHub login routes
+    Route::get('/login/github', [GithubLoginController::class, 'redirectToGithub'])->name('login.github');
+    Route::get('/login/github/callback', [GithubLoginController::class, 'handleGithubCallback']);
 });
 
 Route::middleware('auth')->group(function () {
