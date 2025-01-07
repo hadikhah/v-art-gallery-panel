@@ -21,7 +21,7 @@ const theme = useDarkModeStore();
 const chartOptions = computed(() => ({
     chart: {
         toolbar: { show: false },
-        zoom: { enabled: false },
+        zoom: { enabled: true },
     },
     colors: ["#6366F1"],
     dataLabels: { enabled: false },
