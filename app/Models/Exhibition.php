@@ -70,6 +70,11 @@ class Exhibition extends Model
         return $this->morphToMany(Song::class, 'songable');
     }
 
+    public function viewCount()
+    {
+        return $this->hasMany(ExhibitionView::class);
+    }
+
     public static function getStatusList()
     {
         return [
