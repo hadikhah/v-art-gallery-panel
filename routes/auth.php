@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->prefix('{lang?}')->group(function () {
@@ -63,6 +64,9 @@ Route::middleware('auth')->group(function () {
         ->name('password.confirm');
 
     Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
+
+    Route::delete('/active-sessions/{id}', [ProfileController::class, 'destroySession'])
+        ->name('active-sessions.destroy');
 
     Route::put('password', [PasswordController::class, 'update'])->name('password.update');
 
