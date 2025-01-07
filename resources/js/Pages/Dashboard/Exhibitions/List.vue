@@ -8,10 +8,11 @@ import Skeleton from "@/Components/Skeleton.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Deferred, Link, router, usePage } from "@inertiajs/vue3";
 import { ref } from "vue";
+import { Head } from "@inertiajs/vue3";
 
 const props = defineProps({
     exhibitions: {
-        type: Array,
+        type: Object,
     },
     statusList: {
         type: Array,
@@ -80,6 +81,7 @@ const confirmDelete = () => {
                         </template>
 
                         <!-- Create New Exhibition Button -->
+                        <!-- @click="console.log(exhibitions)" -->
                         <div
                             class="p-5"
                             :class="{ 'text-center': exhibitions.total === 0 }"
@@ -108,6 +110,40 @@ const confirmDelete = () => {
                         <!-- Exhibitions List -->
                         <div class="p-4 text-gray-900 dark:text-gray-300">
                             <div class="space-y-3">
+                                <div
+                                    class="hidden sm:flex p-4 border dark:border-transparent dark:bg-gray-900 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-950 transition-colors flex-col sm:flex-row items-center justify-between gap-4"
+                                >
+                                    <div class="flex-none w-full sm:w-2/5">
+                                        <div class="ml-4">
+                                            <p
+                                                class="font-semibold text-gray-800 dark:text-gray-100"
+                                            >
+                                                Title
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="flex-shrink-0">
+                                        <p
+                                            class="sm:block ml-7 font-semibold text-gray-800 dark:text-gray-100"
+                                        >
+                                            status
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p
+                                            class="hidden mr-8 sm:block font-semibold text-gray-800 dark:text-gray-100"
+                                        >
+                                            total views
+                                        </p>
+                                    </div>
+                                    <div class="w-24">
+                                        <p
+                                            class="hidden sm:block font-semibold text-gray-800 dark:text-gray-100"
+                                        >
+                                            Actions
+                                        </p>
+                                    </div>
+                                </div>
                                 <div
                                     v-for="exhibition in exhibitions.data"
                                     :key="exhibition.id"
@@ -160,6 +196,15 @@ const confirmDelete = () => {
                                                     {{ exhibition.status }}
                                                 </span>
                                             </div>
+                                        </div>
+                                        <div>
+                                            <div class="inline sm:hidden">
+                                                total views :
+                                            </div>
+                                            {{
+                                                exhibition.view_rate_sum_views ??
+                                                0
+                                            }}
                                         </div>
 
                                         <!-- Action Buttons -->
