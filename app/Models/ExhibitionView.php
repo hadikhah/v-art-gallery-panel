@@ -14,11 +14,6 @@ class ExhibitionView extends Model
         "views",
     ];
 
-    protected $casts = [
-        "view_date" => "date",
-    ];
-
-
     public function exhibition()
     {
         return $this->belongsTo(Exhibition::class);
